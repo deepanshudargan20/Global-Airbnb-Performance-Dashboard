@@ -1,0 +1,118 @@
+GLOBAL AIRBNB PERFORMANCE DASHBOARD
+DAX MEASURES & CALCULATED COLUMNS
+=================================
+
+The following DAX was explicitly created/documented during the dashboard build.
+
+1. TOTAL REVIEWS
+----------------
+Total Reviews =
+COUNTROWS(Reviews)
+
+2. UNIQUE REVIEWERS
+-------------------
+Unique Reviewers =
+DISTINCTCOUNT(Reviews[reviewer_id])
+
+3. REVIEW MONTH
+---------------
+Review Month =
+DATE(
+    YEAR(Reviews[date]),
+    MONTH(Reviews[date]),
+    1
+)
+
+4. REVIEW MONTH NAME
+--------------------
+Review Month Name =
+FORMAT(Reviews[Review Month], "MMM")
+
+5. REVIEW MONTH NUMBER
+----------------------
+Review Month Number =
+MONTH(Reviews[Review Month])
+
+Sort Review Month Name by Review Month Number in Power BI.
+
+6. MONTHLY REVIEW SHARE %
+-------------------------
+Monthly Review Share % =
+DIVIDE(
+    COUNTROWS(Reviews),
+    CALCULATE(
+        COUNTROWS(Reviews),
+        REMOVEFILTERS(Listings[city])
+    )
+)
+
+7. HOST IDENTITY STATUS
+-----------------------
+Host Identity Status =
+SWITCH(
+    Listings[host_identity_verified],
+    "t", "Verified",
+    "f", "Not Verified",
+    "N/A"
+)
+
+8. HOST PROFILE PICTURE STATUS
+------------------------------
+Host Profile Picture Status =
+SWITCH(
+    Listings[host_has_profile_pic],
+    "t", "Has Photo",
+    "f", "No Photo",
+    "N/A"
+)
+
+9. HOST IDENTITY VERIFICATION VISUAL
+------------------------------------
+Legend: Listings[Host Identity Status]
+Values: Listings[host_id]
+Aggregation: Distinct Count
+
+10. HOST PROFILE PICTURE VISUAL
+-------------------------------
+Legend: Listings[host_has_profile_pic]
+Values: Listings[listing_id]
+Aggregation: Count
+
+Note: The loaded dataset produced approximately 99.67% Has Photo and 0.33% No Photo.
+This differs from the original reference visual, so the source data was retained rather than forcing the reference percentage.
+
+11. REVIEW SEASONALITY MATRIX
+----------------------------
+Rows: Listings[city]
+Columns: Reviews[Review Month Name]
+Values: Monthly Review Share %
+Filter: Top 5 cities by Total Reviews
+
+Conditional formatting:
+Minimum = #FFFFFF
+Maximum = #FF5A5F
+
+12. DASHBOARD COLORS
+--------------------
+Airbnb-inspired coral: #FF5A5F
+Dark navy/charcoal: #263238
+Teal: #00A699
+
+13. OTHER FINISHED KPIs
+-----------------------
+The dashboard also contains calculations for:
+- Guests with 3 or Fewer Reviews
+- Guests with Exactly 1 Review
+- Hosts with Verified ID & Profile Photo
+- Hosts with Neither ID nor Profile Photo
+- Average Rating
+- Average Price
+- Average Entire Place Price
+- Average Private Room Price
+- Average Shared Room Price
+- Total Hosts
+- Total Listings
+- Total Cities
+
+Their exact DAX expressions were not captured in the available development notes,
+so they are not guessed or fabricated here.
