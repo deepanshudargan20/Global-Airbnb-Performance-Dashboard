@@ -77,9 +77,11 @@ Global-Airbnb-Performance-Dashboard/
 ```
 
 ## Power BI File
-The `.pbix` file is approximately 175 MB, so it is not included as a normal GitHub repository file because GitHub's standard per-file limit is 100 MB.
+The `.pbix` file is approximately 175 MB, so it is hosted separately rather than stored directly in this GitHub repository.
 
-The repository focuses on documentation, screenshots and DAX.
+**[Download the Power BI PBIX file](https://drive.google.com/file/d/1kEiyMuX9zpuRkVMqGAcP6EhDBiIeEebO/view?usp=drive_link)**
+
+The PBIX is shared from Google Drive as a separate portfolio download. GitHub is used for the project documentation, screenshots and DAX.
 
 ## Project Status
 Completed dashboard project. Future improvements may include advanced tooltips, dynamic titles and additional analytical measures.
